@@ -1,0 +1,12 @@
+---
+ - hosts: default
+   sudo: yes
+   vars: 
+     - ruby_version: ruby2.0
+     - rails_postgresql_db_name: hackman14
+
+   roles:
+     # - ShadowKoBolt.vagrant-fresh
+     - ShadowKoBolt.core
+     - ShadowKoBolt.rails-common
+     - kingy.nodejs
