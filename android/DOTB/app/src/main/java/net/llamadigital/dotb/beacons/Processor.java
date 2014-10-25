@@ -12,15 +12,13 @@ public class Processor {
 
     private static final String LOG_TAG = Processor.class.getName();
 
-    public Integer mClosestBeaconMajor;
-
-    public Integer getBestBeaconMajorInList(List<Beacon> beacons) {
+    public Beacon getBestBeacon(List<Beacon> beacons) {
         for (Beacon beacon : beacons) {
             Log.d(LOG_TAG, "" + beacon.getMajor());
         }
         Beacon bestBeacon = beacons.get(0);
         if (bestBeacon != null && bestBeacon.getMajor() < 5) {
-            return beacons.get(0).getMajor();
+            return beacons.get(0);
         }
         else {
             return null;
