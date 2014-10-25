@@ -12,9 +12,7 @@ body>div {
 #current-location {
   background: #277552;
 }
-#action {
-}
-#action button { height: 10vh }
+#actions button { height: 15vh }
 #enemies .enemy {
   display: inline-block;
   padding: 10px;
