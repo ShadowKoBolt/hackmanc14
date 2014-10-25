@@ -22,8 +22,33 @@ class Game
     p
   end
 
-  def receive_message
-    #noop
+  def find_player(id)
+    @players.select { |p| p.id == 0 }
+  end
+
+  def find_tower(id)
+    @towers.select { |p| p.id == 0 }
+  end
+
+  def receive_message(player_id, message)
+    player = find_player(player_id)
+    begin
+      message = JSON.parse(message)
+      if message["location"] == 0
+        player.add_ammo!
+      else
+        tower = find_tower(message["location"])
+        player.location = tower
+        if tower
+          if player.ammo > 0
+            player.remove_ammo! 
+            tower.remove_enemy! if tower.enemies > 0
+          end
+        end
+      end
+      render!
+    rescue Exception => e
+    end
   end
 
   def remove_player_with_id(id)

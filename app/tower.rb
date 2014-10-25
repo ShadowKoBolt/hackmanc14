@@ -5,8 +5,14 @@ class Tower
     @id, @health, @enemies = id, health, 0
   end
 
-  def attack!(n)
-    @enemies += 5
+  def new_wave!(n=5)
+    @enemies += n
+  end
+
+  def remove_enemy!
+    if @enemy > 0
+      @enemy -= 1
+    end
   end
 
   def as_json
