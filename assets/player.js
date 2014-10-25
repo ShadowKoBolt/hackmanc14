@@ -112,6 +112,7 @@ $(function() {
     }
 
     function updateGameActive() {
+      if (self.gameStarted == true) {
         view.find('#start').hide();
         view.find('#action').show();
       }
