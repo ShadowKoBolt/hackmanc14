@@ -60,6 +60,8 @@ class Game
         user_message(player, message)
       when "start"
         game_message("start")
+      when "restart"
+        game_message("start")
       when "stop"
         game_message("stop")
       end
@@ -69,7 +71,7 @@ class Game
   end
 
 
-  def user_message
+  def user_message(player, message)
     if message["location"] == 0
       player.location = :base
       player.add_ammo!
@@ -86,7 +88,7 @@ class Game
   end
 
   def game_message(action)
-    #noop
+    self.send action
   end
 
   def remove_player_with_id(id)
