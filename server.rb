@@ -55,7 +55,7 @@ EM.run {
       end
 
       ws.onerror do  |error|
-        puts "websocket error :"error.inspect
+        puts "websocket error: #{error.inspect}"
       end
     end
 
