@@ -26,8 +26,12 @@ $(function() {
         self.ammo = parsedData.config.ammo;
       }
     }
-    view.find('#attack').click(function() {
-      attack();
+    view.find('#action').click(function() {
+      if (self.currentLocation == 1) {
+        reload();
+      } else {
+        attack();
+      }
     });
     view.find('#start').click(function() {
       start();
@@ -69,14 +73,21 @@ $(function() {
       view.find('#start').hide();
       self.connection.send(JSON.stringify(newAction));
     }
+    function reload() {
+      var newAction = { "action": "reload" }
+      self.connection.send(JSON.stringify(newAction));
+      self.ammo += 1;
+    }
 
     this.updateLocation = function(location) {
       self.currentLocation = location;
       if (location == 1) {
         view.find('#current-location h2').text('Base');
+        view.find('#action').html('Reload');
       } else {
         view.find('#current-location h2').text('Tower: '+ location);
         view.find('#enemies').text(self.enemies);
+        view.find('#action').html('Attack!!!!!');
       }
       var newLocation = { "location": location }
       self.connection.send(JSON.stringify(newLocation));
@@ -86,4 +97,3 @@ $(function() {
   window.game = new Game($('body'));
   window.test = function(string) { $('#test').text(string); }
 });
-
