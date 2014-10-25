@@ -25,10 +25,18 @@ class Game
     !!(@players.reject! { |item| item.id == id }.nil?)
   end
 
+  def render!
+    puts 'render called'
+    players.each do |player|
+      player.connection.send self.to_json
+    end
+  end
+
   def to_json
     {
+      health:health,
       towers:towers.map(&:as_json),
-      players:players
+      players:players.map(&:as_json)
     }.to_json
   end
 
