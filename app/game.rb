@@ -13,14 +13,17 @@ class Game
   end
 
   def start
+    puts "starting game"
     @state = :active
   end
 
   def stop
+    puts "stopping game"
     @state = :ready
   end
 
   def restart
+    puts "restarting game"
     set_defaults!
     start
   end
@@ -80,6 +83,7 @@ class Game
 
 
   def user_message(player, message)
+    puts "message received from user: #{player.id}"
     if message["location"] == 1
       player.location = :base
       player.add_ammo!
@@ -93,6 +97,7 @@ class Game
         end
       end
     end
+    puts "message processed from user: #{player.id}"
   end
 
   def game_message(action)
