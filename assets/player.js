@@ -1,4 +1,17 @@
 $(function() {
+
+  var shotgunSound = new Howl({
+    urls: ['shotgun.mp3']
+  });
+
+  var deadSound = new Howl({
+    urls: ['dead.mp3']
+  });
+
+  var reloadSound = new Howl({
+    urls: ['reload.mp3']
+  });
+
   function Game(view) {
 
     // Setup
