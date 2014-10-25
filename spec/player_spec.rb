@@ -5,6 +5,6 @@ describe Game do
   subject { Player.new(1, connection) }
 
   describe "to_json" do
-    specify { subject.to_json.should be == "{\"id\":1,\"ammo\":0}" }
+    specify { subject.to_json.should be == "{\"id\":1,\"ammo\":5}" }
   end
 end

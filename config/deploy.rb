@@ -3,8 +3,7 @@ set :application, 'dotb'
 set :repo_url, 'git@github.com:ShadowKoBolt/hackmanc14.git'
 set :deploy_to, '/var/www/hackman.llamadigital.net'
 set :scm, :git
-# set :linked_files, %w{config/database.yml}
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log}
 set :keep_releases, 5
 
 namespace :deploy do
