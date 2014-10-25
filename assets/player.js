@@ -70,6 +70,7 @@ $(function() {
         view.find('#base-status h2').text(newGame.health);
         view.find('#base-status .game-over').hide();
       } else {
+        deathSound.play();
         view.find('#base-status h2').text("Game over!");
         view.find('#base-status .game-over').show();
       }
@@ -100,7 +101,7 @@ $(function() {
     }
     function attack() {
       if (self.ammo > 0) {
-        document.getElementById('audio-attack').play();
+        shotgunSound.play();
         window.navigator.vibrate(200);
         var newAttack = { "action": "user", "location": self.currentLocation }
         self.connection.send(JSON.stringify(newAttack));
@@ -118,6 +119,7 @@ $(function() {
       self.connection.send(JSON.stringify(newAction));
     }
     function reload() {
+      reloadSound.play();
       var newAction = { "action": "user", "location": self.currentLocation }
       self.connection.send(JSON.stringify(newAction));
       showAmmunition(self.ammo);
