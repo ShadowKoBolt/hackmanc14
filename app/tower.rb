@@ -1,4 +1,4 @@
-class Base
+class Tower
   attr_reader :id, :health
 
   def initialize(id, health)

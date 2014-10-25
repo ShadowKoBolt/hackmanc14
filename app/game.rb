@@ -1,14 +1,14 @@
 require 'json'
-require './app/base.rb'
+require './app/tower.rb'
 require './app/player.rb'
 require './app/enemy.rb'
 
 class Game
 
-  attr_reader :bases
+  attr_reader :towers
 
-  def initialize(*bases)
-    @bases = bases
+  def initialize(*towers)
+    @towers = towers
   end
 
   def players
@@ -21,7 +21,7 @@ class Game
 
   def to_json
     {
-      bases:bases.map(&:as_json),
+      towers:towers.map(&:as_json),
       players:players,
       enemies:enemies
     }.to_json

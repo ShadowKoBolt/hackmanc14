@@ -6,7 +6,7 @@ require './app/game.rb'
 
 EM.run {
 
-  current_game = Game.new Base.new(1,100), Base.new(2,100), Base.new(3,100)
+  current_game = Game.new Tower.new(1,100), Tower.new(2,100), Tower.new(3,100)
 
   EM::WebSocket.run(:host => "0.0.0.0", :port => 8080) do |ws|
 
