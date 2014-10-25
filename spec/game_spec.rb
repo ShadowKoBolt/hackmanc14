@@ -6,7 +6,7 @@ describe Game do
   subject { Game.new(tower_1, tower_2) }
 
   describe "to_json" do
-    specify { subject.to_json.should be == "{\"health\":100,\"towers\":[\"identifiable_string\",\"another_identifiable_string\"],\"players\":[]}" }
+    specify { subject.to_json.should be == "{\"state\":\"ready\",\"health\":100,\"towers\":[\"identifiable_string\",\"another_identifiable_string\"],\"players\":[]}" }
   end
 
   describe "new_player_from_connection" do

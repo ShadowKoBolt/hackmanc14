@@ -5,11 +5,29 @@ require './app/enemy.rb'
 
 class Game
 
-  attr_reader :towers, :health
+  attr_reader :towers, :health, :state
 
   def initialize(*towers)
-    @health = 100
+    set_defaults!
     @towers = towers
+  end
+
+  def start
+    @state = :active
+  end
+
+  def stop
+    @state = :ready
+  end
+
+  def restart
+    set_defaults!
+    start
+  end
+
+  def set_defaults!
+    @state = :ready
+    @health = 100
   end
 
   def decrement_towers!
@@ -37,22 +55,38 @@ class Game
     player = find_player(player_id)
     begin
       message = JSON.parse(message)
-      if message["location"] == 0
-        player.location = :base
-        player.add_ammo!
-      else
-        tower = find_tower(message["location"])
-        player.location = tower
-        if tower
-          if player.ammo > 0
-            player.remove_ammo! 
-            tower.remove_enemy! if tower.enemies > 0
-          end
-        end
+      case message["action"]
+      when "user"
+        user_message(player, message)
+      when "start"
+        game_message("start")
+      when "stop"
+        game_message("stop")
       end
       render!
-    rescue Exception => e
+    rescue Exception
     end
+  end
+
+
+  def user_message
+    if message["location"] == 0
+      player.location = :base
+      player.add_ammo!
+    else
+      tower = find_tower(message["location"])
+      player.location = tower
+      if tower
+        if player.ammo > 0
+          player.remove_ammo! 
+          tower.remove_enemy! if tower.enemies > 0
+        end
+      end
+    end
+  end
+
+  def game_message(action)
+    #noop
   end
 
   def remove_player_with_id(id)
@@ -65,12 +99,17 @@ class Game
     end
   end
 
-  def to_json
+  def as_json
     {
+      state:state,
       health:health,
       towers:towers.map(&:as_json),
       players:players.map(&:as_json)
-    }.to_json
+    }
+  end
+
+  def to_json
+    as_json.to_json
   end
 
   def players
