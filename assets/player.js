@@ -12,6 +12,10 @@ $(function() {
     urls: ['reload.mp3']
   });
 
+  var startSound = new Howl({
+    urls: ['start.mp3']
+  });
+
   function Game(view) {
 
     // Setup
@@ -115,6 +119,7 @@ $(function() {
       updateGameActive();
       self.connection.send(JSON.stringify(newAction));
       var newAction = { "action": "start" }
+      startSound.play();
       updateGameActive();
       self.connection.send(JSON.stringify(newAction));
     }
