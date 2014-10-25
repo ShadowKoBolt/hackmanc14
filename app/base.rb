@@ -5,10 +5,14 @@ class Base
     @id, @health = id, health
   end
 
-  def to_json
+  def as_json
     {
       id:id,
       health:health
-    }.to_json
+    }
+  end
+
+  def to_json
+    as_json.to_json
   end
 end

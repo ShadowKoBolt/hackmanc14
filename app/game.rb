@@ -21,7 +21,7 @@ class Game
 
   def to_json
     {
-      bases:bases,
+      bases:bases.map(&:as_json),
       players:players,
       enemies:enemies
     }.to_json
