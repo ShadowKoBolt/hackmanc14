@@ -7,7 +7,11 @@ $(function() {
     this.enemies = 0;
     this.currentLocation = 1;
     this.gameStarted = false;
-    this.connection = new WebSocket('wss://hackman.llamadigital.net:8080');
+    if (window.location.hostname == "hackman.llamadigital.net") {
+      this.connection = new WebSocket('wss://hackman.llamadigital.net:8080');
+    } else {
+      this.connection = new WebSocket('ws://192.168.69.69:8080');
+    }
     this.connection.onmessage = function (e) {
       var parsedData = JSON.parse(e.data);
       updateGame(parsedData);
@@ -25,13 +29,22 @@ $(function() {
       view.find('#base-status h2').text(newGame.health);
       if (self.currentLocation > 1) {
         self.enemies = newGame.towers[self.currentLocation - 1].enemies;
-        view.find('#enemies').text(self.enemies);
+        // view.find('#enemies').text(self.enemies);
+        showEnemies(self.enemies);
       } else {
         view.find('#enemies').text("");
       }
     }
+    function showEnemies(count) {
+      enemyContainer = view.find("#enemies");
+      enemyContainer.empty();
+      for (i = 0 ; i < count ; i++) {
+        enemyContainer.append("<span class='enemy'>Enemy<span>"); 
+      }
+    }
     function attack() {
-      var newAttack = { "attack": 1 }
+      window.navigator.vibrate(200);
+      var newAttack = { "action": "attack" }
       self.connection.send(JSON.stringify(newAttack));
     }
     function start() {

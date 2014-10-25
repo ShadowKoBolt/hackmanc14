@@ -51,7 +51,13 @@ public class WebViewActivity extends Activity {
                 @Override
                 public void onBeaconsDiscovered(Region region, List<Beacon> beacons) {
                     Integer bestBeaconMajor = mProcessor.getBestBeaconMajorInList(beacons);
-                    webView.loadUrl("javascript:test('Beacon " + bestBeaconMajor + "')");
+                    if (bestBeaconMajor != null) {
+                        webView.loadUrl("javascript:test('Beacon " + bestBeaconMajor + "')");
+                        webView.loadUrl("javascript:game.updateLocation(" + bestBeaconMajor + ")");
+                    }
+                    else {
+                        webView.loadUrl("javascript:test('No Beacon')");
+                    }
                 }
             });
         }
