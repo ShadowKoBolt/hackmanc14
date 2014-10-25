@@ -4,7 +4,7 @@ $(function() {
     // Setup
     var self = this;
     this.view = view;
-    this.connection = new WebSocket('ws://192.168.69.69:8080');
+    this.connection = new WebSocket('wss://hackman.llamadigital.net:8080');
     this.connection.onmessage = function (e) {
       var parsedData = JSON.parse(e.data);
       updateGame(parsedData);
@@ -26,4 +26,4 @@ $(function() {
   var game = new Game($('body'));
 });
 
-test = function(string) { console.log(string); }
+test = function(string) { $('h1').text(string); }

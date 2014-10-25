@@ -27,7 +27,14 @@ EM.run {
 
   #   EventMachine.add_timer(10) { puts "Executing timer event: #{Time.now}" }
 
-  EM::WebSocket.run(:host => "0.0.0.0", :port => 8080) do |ws|
+  EM::WebSocket.run(
+    :host => "0.0.0.0", 
+    :port => 8080, 
+    :secure => true, 
+    :tls_options => { 
+      :private_key_file => "/etc/apache2/ssl/llamadigital.net.key", 
+      :cert_chain_file => "/etc/apache2/ssl/llamadigital.net.crt"
+    } ) do |ws|
 
     player_id = nil
 
