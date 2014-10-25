@@ -56,7 +56,6 @@ class Game
   end
 
   def render!
-    puts 'render called'
     players.each do |player|
       player.connection.send self.to_json
     end
