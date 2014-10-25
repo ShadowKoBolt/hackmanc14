@@ -15,13 +15,12 @@ $(function() {
     if (window.location.hostname == "hackman.llamadigital.net") {
       this.connection = new WebSocket('wss://hackman.llamadigital.net:8080');
     } else {
-      this.connection = new WebSocket('ws://192.168.69.69:8080');
-    }
-    this.connection.onmessage = function (e) {
+      this.connection = new WebSocket('ws://192.168.69.69:8080'); } this.connection.onmessage = function (e) {
       var parsedData = JSON.parse(e.data);
       if (self.connected) {
         updateGame(parsedData);
       } else {
+        self.playerId = parsedData.config.id;
         self.connected = true;
         self.playerId = parsedData.config.id;
         self.ammo = parsedData.config.ammo;
@@ -40,12 +39,30 @@ $(function() {
 
     function updateGame(newGame) {
       console.log(newGame);
-      self.gameStarted = this.active;
+      
+      // update state
+      if (newGame.state == 'active') {
+        self.gameStarted = true;
+      }
+      else {
+        self.gameStarted = false;
+      }
+      
+      // update ammo
+      players = newGame.players;
+      for (i = 0 ; i < players.length ; i++) {
+        player = players[i];
+        if (player.id == self.playerId) {
+          self.ammo = player.ammo;
+        }
+      }
+
       updateGameActive();
       if(newGame.health > 0) {
         view.find('#base-status h2').text(newGame.health);
       } else {
         view.find('#base-status h2').text("Game over!");
+        view.find('#base-status .game-over').show();
       }
       showAmmunition(self.ammo);
       if (self.currentLocation > 1) {
@@ -83,6 +100,7 @@ $(function() {
       }
     }
     function start() {
+      view.find('#base-status .loading').hide();
       var newAction = { "action": "start" }
       updateGameActive();
       self.connection.send(JSON.stringify(newAction));
@@ -90,7 +108,6 @@ $(function() {
     function reload() {
       var newAction = { "action": "user", "location": self.currentLocation }
       self.connection.send(JSON.stringify(newAction));
-      self.ammo += 1;
       showAmmunition(self.ammo);
     }
 
