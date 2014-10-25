@@ -42,10 +42,8 @@ class Game
   end
 
   def decrement_towers!
-    new_health = (@towers.inject(0) { |res, t| res + t.enemies })
-    if new_health <= 0
-      @health = 0
-    end
+    damage = (@towers.inject(0) { |res, t| res + t.enemies })
+    @health = [(@health - damage), 0].max
   end
 
   def new_player_from_connection(connection)
@@ -105,7 +103,7 @@ class Game
   end
 
   def remove_player_with_id(id)
-    !!(@players.reject! { |item| item.id == id }.nil?)
+    !!(@players.delete_if { |item| item.id == id }.nil?)
   end
 
   def render!

@@ -40,10 +40,12 @@ $(function() {
 
     function updateGame(newGame) {
       console.log(newGame);
+      self.gameStarted = this.active;
+      updateGameActive();
       view.find('#base-status h2').text(newGame.health);
       view.find('#ammo').text(self.ammo);
       if (self.currentLocation > 1) {
-        self.enemies = newGame.towers[self.currentLocation - 1].enemies;
+        self.enemies = newGame.towers[self.currentLocation - 2].enemies;
         // view.find('#enemies').text(self.enemies);
         showEnemies(self.enemies);
       } else {
@@ -70,13 +72,22 @@ $(function() {
     }
     function start() {
       var newAction = { "action": "start" }
-      view.find('#start').hide();
+      updateGameActive();
       self.connection.send(JSON.stringify(newAction));
     }
     function reload() {
       var newAction = { "action": "reload" }
       self.connection.send(JSON.stringify(newAction));
       self.ammo += 1;
+    }
+
+    function updateGameActive() {
+      if (self.gameStarted == true) {
+        view.find('#start').hide();
+      }
+      else {
+        view.find('#start').show();
+      }
     }
 
     this.updateLocation = function(location) {
