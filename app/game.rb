@@ -28,7 +28,7 @@ class Game
   def to_json
     {
       towers:towers.map(&:as_json),
-      players:players
+      players:players.map(&:as_json)
     }.to_json
   end
 
