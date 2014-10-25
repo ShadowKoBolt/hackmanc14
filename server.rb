@@ -14,7 +14,7 @@ EM.run {
       old_health = @game.health
       tower = @game.towers.sample
       puts "new wave attacking tower: #{tower.id}"
-      tower.new_wave!(5)
+      tower.new_wave!(rand(7))
       @game.render! if old_health != @game.health
     end
   }
