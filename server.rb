@@ -24,6 +24,9 @@ EM.run {
     if @game.active? && @game.players.length > 0
       puts "enemies attacking"
       @game.decrement_towers! 
+      if @game.health == 0 
+        @game.game_over!  
+      end
       @game.render!
     end
   }

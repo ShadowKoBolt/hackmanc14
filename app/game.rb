@@ -32,6 +32,14 @@ class Game
     state == :active
   end
 
+  def game_over?
+    state == :game_over
+  end
+  
+  def game_over!
+    @state = :game_over
+  end
+
   def ready?
     state == :ready
   end

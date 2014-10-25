@@ -6,7 +6,7 @@ $(function() {
     this.view = view;
     this.enemies = 0;
     this.currentLocation = 1;
-    this.gameStarted = false;
+    this.gameState = 'ready';
     this.connected = false;
     this.playerId = 0;
     this.ammo = 0;
@@ -41,12 +41,7 @@ $(function() {
       console.log(newGame);
       
       // update state
-      if (newGame.state == 'active') {
-        self.gameStarted = true;
-      }
-      else {
-        self.gameStarted = false;
-      }
+      self.gameState = newGame.state
       
       // update ammo
       players = newGame.players;
@@ -57,7 +52,7 @@ $(function() {
         }
       }
 
-      updateGameActive();
+      updateGameActive(newGame);
       if(newGame.health > 0) {
         view.find('#base-status h2').text(newGame.health);
       } else {
@@ -68,7 +63,6 @@ $(function() {
       showAmmunition(self.ammo);
       if (self.currentLocation > 1) {
         self.enemies = newGame.towers[self.currentLocation - 2].enemies;
-        // view.find('#enemies').text(self.enemies);
         showEnemies(self.enemies);
       } else {
         view.find('#enemies').text("");
@@ -103,6 +97,9 @@ $(function() {
     }
     function start() {
       view.find('#base-status .loading').hide();
+      var newAction = { "action": "restart" }
+      updateGameActive();
+      self.connection.send(JSON.stringify(newAction));
       var newAction = { "action": "start" }
       updateGameActive();
       self.connection.send(JSON.stringify(newAction));
@@ -114,11 +111,15 @@ $(function() {
     }
 
     function updateGameActive() {
-      if (self.gameStarted == true) {
+      if (self.gameState == 'ready') {
+        view.find('#start').show();
+        view.find('#action').hide();
+      }
+      if (self.gameState == 'active') {
         view.find('#start').hide();
         view.find('#action').show();
       }
-      else {
+      if (self.gameState == 'game_over')  {
         view.find('#start').show();
         view.find('#action').hide();
       }
