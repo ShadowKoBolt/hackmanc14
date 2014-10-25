@@ -15,6 +15,12 @@ class Player
     end
   end
 
+  def add_ammo!
+    if @ammo < 5
+      @ammo += 1
+    end
+  end
+
   def as_json
     {
       id:id,

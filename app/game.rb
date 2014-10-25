@@ -83,7 +83,7 @@ class Game
   def user_message(player, message)
     puts "message received from user: #{player.id}"
     if message["location"] == 1
-      player.location = :base
+      # player.location = :base
       player.add_ammo!
     else
       tower = find_tower(message["location"])
