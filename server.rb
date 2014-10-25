@@ -31,7 +31,7 @@ EM.run {
   EM::WebSocket.run(
     :host => "0.0.0.0", 
     :port => 8080, 
-    :secure => !ENV['ENVIRONMENT']=='development', 
+    :secure => !(ENV['ENVIRONMENT'] == 'development'), 
     :tls_options => ENV['ENVIRONMENT'] == 'development' ? {} : tls_options ) do |ws|
 
       player_id = nil
