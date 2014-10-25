@@ -9,9 +9,10 @@ $(function() {
     this.gameStarted = false;
     this.connected = false;
     this.playerId = 0;
+    this.ammo = 0;
 
     if (window.location.hostname == "hackman.llamadigital.net") {
-      this.connection = new WebSocket('wss://hackman.llamadigital.net:8080');
+      this.connection = new WebSocket('ws://hackman.llamadigital.net:8080');
     } else {
       this.connection = new WebSocket('ws://192.168.69.69:8080');
     }
@@ -22,6 +23,7 @@ $(function() {
       } else {
         self.connected = true;
         self.playerId = parsedData.config.id;
+        self.ammo = parsedData.config.ammo;
       }
     }
     view.find('#attack').click(function() {
@@ -35,6 +37,7 @@ $(function() {
     function updateGame(newGame) {
       console.log(newGame);
       view.find('#base-status h2').text(newGame.health);
+      view.find('#ammo').text(self.ammo);
       if (self.currentLocation > 1) {
         self.enemies = newGame.towers[self.currentLocation - 1].enemies;
         // view.find('#enemies').text(self.enemies);
@@ -54,9 +57,12 @@ $(function() {
       }
     }
     function attack() {
-      window.navigator.vibrate(200);
-      var newAttack = { "action": "attack" }
-      self.connection.send(JSON.stringify(newAttack));
+      if (self.ammo > 0) {
+        window.navigator.vibrate(200);
+        var newAttack = { "action": "attack" }
+        self.connection.send(JSON.stringify(newAttack));
+        self.ammo -= 1;
+      }
     }
     function start() {
       var newAction = { "action": "start" }
