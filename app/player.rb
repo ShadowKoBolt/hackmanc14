@@ -14,7 +14,7 @@ class Player
   def as_json
     {
       id:id,
-      ammo:0
+      ammo:@ammo
     }
   end
 
