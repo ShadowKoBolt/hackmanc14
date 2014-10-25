@@ -14,10 +14,16 @@ body>div {
 }
 #actions button { height: 15vh }
 #enemies .enemy {
+  background-image: url("enemy.jpeg");
+  background-size: contain;
+  background-repeat: no-repeat;
   display: inline-block;
   padding: 10px;
 }
 #ammunition .bullet {
+  background-image: url("bullet.gif");
+  background-repeat: no-repeat;
+  background-size: contain;
   display: inline-block;
   padding: 10px;
 }

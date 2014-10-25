@@ -62,14 +62,14 @@ $(function() {
       enemyContainer = view.find("#enemies");
       enemyContainer.empty();
       for (i = 0 ; i < count ; i++) {
-        enemyContainer.append("<span class='enemy'>Enemy<span>"); 
+        enemyContainer.append("<span class='enemy'><span>"); 
       }
     }
     function showAmmunition(count) {
       ammoContainer = view.find("#ammunition");
       ammoContainer.empty();
       for (i = 0 ; i < count ; i++) {
-        ammoContainer.append("<span class='bullet'>Bullet<span>"); 
+        ammoContainer.append("<span class='bullet'><span>"); 
       }
     }
     function attack() {

@@ -87,6 +87,7 @@ class Game
       player.add_ammo!
     else
       tower = find_tower(message["location"])
+      puts "message for tower: #{tower.id} - #{message}"
       player.location = tower
       if tower
         if player.ammo > 0
