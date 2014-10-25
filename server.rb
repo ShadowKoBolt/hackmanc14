@@ -9,16 +9,20 @@ EM.run {
   @current_game = Game.new Tower.new(1,100), Tower.new(2,100), Tower.new(3,100)
 
   wave_timer = EventMachine::PeriodicTimer.new 20, Proc.new {
-    old_health = @current_game.health
-    tower = @current_game.towers.sample
-    puts "attacking tower: #{tower.id}"
-    tower.attack!(5)
-    @current_game.render! if old_health != @current_game.health
+    if @current_game.players.length > 0
+      old_health = @current_game.health
+      tower = @current_game.towers.sample
+      puts "attacking tower: #{tower.id}"
+      tower.attack!(5)
+      @current_game.render! if old_health != @current_game.health
+    end
   }
 
   attack_timer = EventMachine::PeriodicTimer.new 5, Proc.new {
-    @current_game.decrement_towers! 
-    @current_game.render!
+    if @current_game.players.length > 0
+      @current_game.decrement_towers! 
+      @current_game.render!
+    end
   }
 
   #   EventMachine.add_timer(10) { puts "Executing timer event: #{Time.now}" }
