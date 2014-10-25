@@ -6,8 +6,8 @@ EM.run {
     if @current_game.players.length > 0
       old_health = @current_game.health
       tower = @current_game.towers.sample
-      puts "attacking tower: #{tower.id}"
-      tower.attack!(5)
+      puts "new wave attacking tower: #{tower.id}"
+      tower.new_wave!(5)
       @current_game.render! if old_health != @current_game.health
     end
   }
@@ -19,13 +19,11 @@ EM.run {
     end
   }
 
-  #   EventMachine.add_timer(10) { puts "Executing timer event: #{Time.now}" }
-
   EM::WebSocket.run(
     :host => "0.0.0.0", 
     :port => 8080, 
-    :secure => true, 
-    :tls_options => { 
+    :secure => !ENV=='development', 
+    :tls_options => ENV == 'development' ? {} : { 
       :private_key_file => "/etc/apache2/ssl/llamadigital.net.key", 
       :cert_chain_file => "/etc/apache2/ssl/llamadigital.net.crt"
     } ) do |ws|

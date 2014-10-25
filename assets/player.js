@@ -21,9 +21,14 @@ $(function() {
     function attack() {
       self.connection.send('attack');
     }
+
+    this.updateLocation = function(location) {
+      var newLocation = { "location": location }
+      self.connection.send(JSON.stringify(newLocation));
+    }
   }
 
-  var game = new Game($('body'));
+  window.game = new Game($('body'));
+  window.test = function(string) { $('#test').text(string); }
 });
 
-test = function(string) { $('h1').text(string); }
