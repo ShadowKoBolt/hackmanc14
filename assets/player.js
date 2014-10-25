@@ -37,13 +37,15 @@ $(function() {
       start();
     });
 
-
     function updateGame(newGame) {
       console.log(newGame);
       self.gameStarted = this.active;
       updateGameActive();
-      view.find('#base-status h2').text(newGame.health);
-      // view.find('#ammo').text(self.ammo);
+      if(newGame.health > 0) {
+        view.find('#base-status h2').text(newGame.health);
+      } else {
+        view.find('#base-status h2').text("Game over!");
+      }
       showAmmunition(self.ammo);
       if (self.currentLocation > 1) {
         self.enemies = newGame.towers[self.currentLocation - 2].enemies;
