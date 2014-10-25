@@ -22,7 +22,7 @@ class Game
     p
   end
 
-  def receive_message
+  def receive_message(player_id, message)
     #noop
   end
 
