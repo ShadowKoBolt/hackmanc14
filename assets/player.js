@@ -10,6 +10,7 @@ $(function() {
     this.connected = false;
     this.playerId = 0;
     this.ammo = 0;
+    updateGameActive();
 
     if (window.location.hostname == "hackman.llamadigital.net") {
       this.connection = new WebSocket('wss://hackman.llamadigital.net:8080');
@@ -96,9 +97,11 @@ $(function() {
     function updateGameActive() {
       if (self.gameStarted == true) {
         view.find('#start').hide();
+        view.find('#action').show();
       }
       else {
         view.find('#start').show();
+        view.find('#action').hide();
       }
     }
 
