@@ -50,10 +50,10 @@ public class WebViewActivity extends Activity {
             mBeaconManager.setRangingListener(new BeaconManager.RangingListener() {
                 @Override
                 public void onBeaconsDiscovered(Region region, List<Beacon> beacons) {
-                    Integer bestBeaconMajor = mProcessor.getBestBeaconMajorInList(beacons);
-                    if (bestBeaconMajor != null) {
-                        webView.loadUrl("javascript:test('Beacon " + bestBeaconMajor + "')");
-                        webView.loadUrl("javascript:game.updateLocation(" + bestBeaconMajor + ")");
+                    Beacon bestBeacon = mProcessor.getBestBeacon(beacons);
+                    if (bestBeacon != null) {
+                        webView.loadUrl("javascript:test('Beacon " + bestBeacon.getMajor() + " " + bestBeacon.getRssi() + "')");
+                        webView.loadUrl("javascript:game.updateLocation(" + bestBeacon.getMajor() + ")");
                     }
                     else {
                         webView.loadUrl("javascript:test('No Beacon')");

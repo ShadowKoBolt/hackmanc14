@@ -39,7 +39,7 @@ $(function() {
       view.find('#base-status h2').text(newGame.health);
       view.find('#ammo').text(self.ammo);
       if (self.currentLocation > 1) {
-        self.enemies = newGame.towers[self.currentLocation - 1].enemies;
+        self.enemies = newGame.towers[self.currentLocation - 2].enemies;
         // view.find('#enemies').text(self.enemies);
         showEnemies(self.enemies);
       } else {
