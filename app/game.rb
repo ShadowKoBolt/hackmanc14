@@ -5,14 +5,15 @@ require './app/enemy.rb'
 
 class Game
 
-  attr_reader :towers
+  attr_reader :towers, :health
 
   def initialize(*towers)
+    @health = 100
     @towers = towers
   end
 
-  def health
-    @health ||= 100
+  def decrement_towers!
+    @health -= (@towers.inject(0) { |res, t| res + t.enemies })
   end
 
   def new_player_from_connection(connection)
