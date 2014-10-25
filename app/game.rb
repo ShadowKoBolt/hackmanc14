@@ -22,6 +22,10 @@ class Game
     p
   end
 
+  def receive_message
+    #noop
+  end
+
   def remove_player_with_id(id)
     !!(@players.reject! { |item| item.id == id }.nil?)
   end
