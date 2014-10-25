@@ -34,7 +34,7 @@ EM.run {
     :secure => !(ENV['ENVIRONMENT'] == 'development'), 
     :tls_options => ENV['ENVIRONMENT'] == 'development' ? {} : tls_options ) do |ws|
 
-      player_id = nil
+      player = nil
 
       ws.onopen do |handshake|
         puts "WebSocket connection open"
@@ -45,13 +45,13 @@ EM.run {
       ws.onclose do 
         puts "Connection closed" 
         ws.send "Closed."
-        @game.remove_player_with_id player_id
+        @game.remove_player_with_id player.id
       end
 
       ws.onmessage do |msg|
-        puts "Raw message received from user: #{player_id}"
+        puts "Raw message received from user: #{player.id}"
         puts msg
-        @game.receive_message(player_id, msg)
+        @game.receive_message(player.id, msg)
       end
 
       ws.onerror do  |error|
