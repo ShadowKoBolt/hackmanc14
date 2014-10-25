@@ -29,9 +29,17 @@ $(function() {
       view.find('#base-status h2').text(newGame.health);
       if (self.currentLocation > 1) {
         self.enemies = newGame.towers[self.currentLocation - 1].enemies;
-        view.find('#enemies').text(self.enemies);
+        // view.find('#enemies').text(self.enemies);
+        showEnemies(self.enemies);
       } else {
         view.find('#enemies').text("");
+      }
+    }
+    function showEnemies(count) {
+      enemyContainer = view.find("#enemies");
+      enemyContainer.empty();
+      for (i = 0 ; i < count ; i++) {
+        enemyContainer.append("<span class='enemy'>Enemy<span>"); 
       }
     }
     function attack() {
