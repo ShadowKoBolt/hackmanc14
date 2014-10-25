@@ -17,8 +17,8 @@ EM.run {
 
     ws.onopen do |handshake|
       puts "WebSocket connection open"
-      player_id = @current_game.new_payer_from_connection(ws).id
-      ws.send {success:true}.to_json 
+      player_id = @current_game.new_player_from_connection(ws).id
+      ws.send(@current_game.to_json)
     end
 
     ws.onclose do 

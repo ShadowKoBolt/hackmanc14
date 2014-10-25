@@ -5,7 +5,4 @@ class Player
     @id, @connection = id, connection
   end
 
-  def health
-    @health ||= 100
-  end
 end
