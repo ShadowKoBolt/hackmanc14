@@ -15,9 +15,7 @@ $(function() {
     if (window.location.hostname == "hackman.llamadigital.net") {
       this.connection = new WebSocket('wss://hackman.llamadigital.net:8080');
     } else {
-      this.connection = new WebSocket('ws://192.168.69.69:8080');
-    }
-    this.connection.onmessage = function (e) {
+      this.connection = new WebSocket('ws://192.168.69.69:8080'); } this.connection.onmessage = function (e) {
       var parsedData = JSON.parse(e.data);
       if (self.connected) {
         updateGame(parsedData);
@@ -40,7 +38,12 @@ $(function() {
 
     function updateGame(newGame) {
       console.log(newGame);
-      self.gameStarted = this.active;
+      if (newGame.state == 'active') {
+        self.gameStarted = true;
+      }
+      else {
+        self.gameStarted = false;
+      }
       updateGameActive();
       if(newGame.health > 0) {
         view.find('#base-status h2').text(newGame.health);
