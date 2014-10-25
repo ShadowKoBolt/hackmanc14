@@ -8,7 +8,7 @@ EM.run {
   @game = Game.new Tower.new(2, 100), Tower.new(3, 100), Tower.new(4, 100)
 
   EventMachine::PeriodicTimer.new 20, Proc.new {
-    puts "game state is #{@game.state}"
+    puts "game state is #{@game.state} with #{@game.players.length} players"
     if @game.active? && @game.players.length > 0
       puts "enemies advancing"
       old_health = @game.health
@@ -20,7 +20,7 @@ EM.run {
   }
 
   EventMachine::PeriodicTimer.new 5, Proc.new {
-    puts "game state is #{@game.state}"
+    puts "game state is #{@game.state} with #{@game.players.length} players"
     if @game.active? && @game.players.length > 0
       puts "enemies attacking"
       @game.decrement_towers! 
@@ -52,6 +52,10 @@ EM.run {
         puts "Raw message received from user: #{player_id}"
         puts msg
         @game.receive_message(player_id, msg)
+      end
+
+      ws.onerror do  |error|
+        puts "websocket error: #{error.inspect}: #{error.message}"
       end
     end
 
