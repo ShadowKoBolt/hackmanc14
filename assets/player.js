@@ -43,7 +43,8 @@ $(function() {
       self.gameStarted = this.active;
       updateGameActive();
       view.find('#base-status h2').text(newGame.health);
-      view.find('#ammo').text(self.ammo);
+      // view.find('#ammo').text(self.ammo);
+      showAmmunition(self.ammo);
       if (self.currentLocation > 1) {
         self.enemies = newGame.towers[self.currentLocation - 2].enemies;
         // view.find('#enemies').text(self.enemies);
@@ -62,12 +63,20 @@ $(function() {
         enemyContainer.append("<span class='enemy'>Enemy<span>"); 
       }
     }
+    function showAmmunition(count) {
+      ammoContainer = view.find("#ammunition");
+      ammoContainer.empty();
+      for (i = 0 ; i < count ; i++) {
+        ammoContainer.append("<span class='bullet'>Bullet<span>"); 
+      }
+    }
     function attack() {
       if (self.ammo > 0) {
         window.navigator.vibrate(200);
         var newAttack = { "action": "attack" }
         self.connection.send(JSON.stringify(newAttack));
         self.ammo -= 1;
+        showAmmunition(self.ammo);
       }
     }
     function start() {
@@ -79,6 +88,7 @@ $(function() {
       var newAction = { "action": "reload" }
       self.connection.send(JSON.stringify(newAction));
       self.ammo += 1;
+      showAmmunition(self.ammo);
     }
 
     function updateGameActive() {
