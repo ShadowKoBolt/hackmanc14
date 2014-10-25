@@ -89,6 +89,7 @@ class Game
       tower = find_tower(message["location"])
       puts "message for tower: #{tower.id} - #{message}"
       player.location = tower
+      puts tower.inspect
       if tower
         if player.ammo > 0
           player.remove_ammo! 
