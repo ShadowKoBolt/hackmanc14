@@ -25,6 +25,14 @@ class Game
     start
   end
 
+  def active?
+    state == :active
+  end
+
+  def ready?
+    state == :ready
+  end
+
   def set_defaults!
     @state = :ready
     @health = 100
