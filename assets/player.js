@@ -12,7 +12,7 @@ $(function() {
     this.ammo = 0;
 
     if (window.location.hostname == "hackman.llamadigital.net") {
-      this.connection = new WebSocket('ws://hackman.llamadigital.net:8080');
+      this.connection = new WebSocket('wss://hackman.llamadigital.net:8080');
     } else {
       this.connection = new WebSocket('ws://192.168.69.69:8080');
     }
