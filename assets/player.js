@@ -100,6 +100,7 @@ $(function() {
       }
     }
     function start() {
+      view.find('#base-status .loading').hide();
       var newAction = { "action": "start" }
       updateGameActive();
       self.connection.send(JSON.stringify(newAction));
@@ -107,7 +108,6 @@ $(function() {
     function reload() {
       var newAction = { "action": "user", "location": self.currentLocation }
       self.connection.send(JSON.stringify(newAction));
-      self.ammo += 1;
       showAmmunition(self.ammo);
     }
 
