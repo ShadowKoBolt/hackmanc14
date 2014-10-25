@@ -1,9 +1,3 @@
-require 'rubygems'
-require 'bundler/setup'
-Bundler.require
-
-require './app/game.rb'
-
 EM.run {
 
   @current_game = Game.new Tower.new(1,100), Tower.new(2,100), Tower.new(3,100)
