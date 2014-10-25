@@ -25,8 +25,6 @@ EM.run {
     end
   }
 
-  #   EventMachine.add_timer(10) { puts "Executing timer event: #{Time.now}" }
-
   EM::WebSocket.run(
     :host => "0.0.0.0", 
     :port => 8080, 
