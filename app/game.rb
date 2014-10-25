@@ -53,11 +53,11 @@ class Game
   end
 
   def find_player(id)
-    @players.select { |p| p.id == 0 }
+    @players.select { |p| p.id == id }.first
   end
 
   def find_tower(id)
-    @towers.select { |p| p.id == 0 }
+    @towers.select { |p| p.id == id }.first
   end
 
   def receive_message(player_id, message)
@@ -87,11 +87,10 @@ class Game
       player.add_ammo!
     else
       tower = find_tower(message["location"])
-      puts "message for tower: #{tower.id} - #{message}"
-      player.location = tower
-      puts tower.inspect
+      puts "TOWER: #{tower.id}"
+      # player.location = tower
       if tower
-        if player.ammo > 0
+        if player.has_ammo?
           player.remove_ammo! 
           tower.remove_enemy! if tower.enemies > 0
         end

@@ -118,7 +118,7 @@ $(function() {
       }
       else {
         view.find('#start').show();
-        // view.find('#action').hide();
+        view.find('#action').hide();
       }
     }
 

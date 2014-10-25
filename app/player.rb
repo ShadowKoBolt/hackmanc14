@@ -5,6 +5,10 @@ class Player
     @id, @connection, @ammo = id, connection, 5
   end
 
+  def has_ammo?
+    @ammo > 0
+  end
+
   def remove_ammo!
     if @ammo > 0
       @ammo -= 1
