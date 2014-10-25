@@ -132,7 +132,6 @@ $(function() {
         view.find('#action').html('Reload');
       } else {
         view.find('#current-location h2').text('Tower: '+ location);
-        view.find('#enemies').text(self.enemies);
         view.find('#action').html('Attack!!!!!');
       }
       var newLocation = { "location": location }
