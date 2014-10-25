@@ -5,10 +5,10 @@ tls_options = {
 
 EM.run {
 
-  @game = Game.new Tower.new(1,100), Tower.new(2,100), Tower.new(3,100)
+  @game = Game.new Tower.new(2, 100), Tower.new(3, 100), Tower.new(4, 100)
 
   EventMachine::PeriodicTimer.new 20, Proc.new {
-    if @game.active? && @game.players.length > 0
+    if @game.active? && @game.players.length > 2
       old_health = @game.health
       tower = @game.towers.sample
       puts "new wave attacking tower: #{tower.id}"
