@@ -26,4 +26,4 @@ $(function() {
   var game = new Game($('body'));
 });
 
-test = function(string) { console.log(string); }
+test = function(string) { $('h1').text(string); }
