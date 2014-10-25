@@ -47,6 +47,11 @@ class Game
   def set_defaults!
     @state = :ready
     @health = 100
+    if @towers
+      @towers.each do |tower|
+        tower.reset!
+      end
+    end
   end
 
   def decrement_towers!

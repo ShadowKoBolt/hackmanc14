@@ -14,6 +14,10 @@ class Tower
     @enemies = [(@enemies - 1), 0].max
   end
 
+  def reset!
+    @enemies = 0
+  end
+
   def as_json
     {
       id:id,
