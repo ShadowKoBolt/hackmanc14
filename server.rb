@@ -9,7 +9,7 @@ EM.run {
 
   EventMachine::PeriodicTimer.new 20, Proc.new {
     puts "game state is #{@game.state}"
-    if @game.active? && @game.players.length > 2
+    if @game.active? && @game.players.length > 0
       puts "enemies advancing"
       old_health = @game.health
       tower = @game.towers.sample
