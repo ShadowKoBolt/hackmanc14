@@ -10,9 +10,8 @@ class Tower
   end
 
   def remove_enemy!
-    if @enemies > 0
-      @enemies -= 1
-    end
+    puts "enemy killed!"
+    @enemies = [(@enemies - 1), 0].max
   end
 
   def as_json
