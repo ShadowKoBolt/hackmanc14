@@ -73,7 +73,7 @@ $(function() {
     function attack() {
       if (self.ammo > 0) {
         window.navigator.vibrate(200);
-        var newAttack = { "action": "attack" }
+        var newAttack = { "action": "user", "location": self.currentLocation }
         self.connection.send(JSON.stringify(newAttack));
         self.ammo -= 1;
         showAmmunition(self.ammo);
@@ -85,7 +85,7 @@ $(function() {
       self.connection.send(JSON.stringify(newAction));
     }
     function reload() {
-      var newAction = { "action": "reload" }
+      var newAction = { "action": "user", "location": self.currentLocation }
       self.connection.send(JSON.stringify(newAction));
       self.ammo += 1;
       showAmmunition(self.ammo);
