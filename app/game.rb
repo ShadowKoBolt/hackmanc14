@@ -13,7 +13,10 @@ class Game
   end
 
   def decrement_towers!
-    @health -= (@towers.inject(0) { |res, t| res + t.enemies })
+    new_health = (@towers.inject(0) { |res, t| res + t.enemies })
+    if new_health <= 0
+      @health = 0
+    end
   end
 
   def new_player_from_connection(connection)
