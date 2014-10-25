@@ -80,7 +80,7 @@ class Game
 
 
   def user_message(player, message)
-    if message["location"] == 0
+    if message["location"] == 1
       player.location = :base
       player.add_ammo!
     else
