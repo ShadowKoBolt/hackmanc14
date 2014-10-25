@@ -7,6 +7,9 @@ $(function() {
     this.enemies = 0;
     this.currentLocation = 1;
     this.gameStarted = false;
+    this.connected = false;
+    this.playerId = 0;
+
     if (window.location.hostname == "hackman.llamadigital.net") {
       this.connection = new WebSocket('wss://hackman.llamadigital.net:8080');
     } else {
@@ -14,7 +17,12 @@ $(function() {
     }
     this.connection.onmessage = function (e) {
       var parsedData = JSON.parse(e.data);
-      updateGame(parsedData);
+      if (self.connected) {
+        updateGame(parsedData);
+      } else {
+        self.connected = true;
+        self.playerId = parsedData.config.id;
+      }
     }
     view.find('#attack').click(function() {
       attack();
