@@ -112,13 +112,12 @@ $(function() {
     }
 
     function updateGameActive() {
-      if (self.gameStarted == true) {
         view.find('#start').hide();
         view.find('#action').show();
       }
       else {
         view.find('#start').show();
-        // view.find('#action').hide();
+        view.find('#action').hide();
       }
     }
 
