@@ -96,10 +96,12 @@ class Game
       end
     end
     puts "message processed from user: #{player.id}"
+    render!
   end
 
   def game_message(action)
     self.send action
+    render!
   end
 
   def remove_player_with_id(id)
