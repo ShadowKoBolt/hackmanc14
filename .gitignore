@@ -1,3 +1,2 @@
 .vagrant/
-log/*.output
-log/*.pid
+log
