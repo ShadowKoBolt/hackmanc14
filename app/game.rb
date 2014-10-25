@@ -105,7 +105,7 @@ class Game
   end
 
   def remove_player_with_id(id)
-    !!(@players.reject! { |item| item.id == id }.nil?)
+    !!(@players.delete_if { |item| item.id == id }.nil?)
   end
 
   def render!
