@@ -55,8 +55,8 @@ $(function() {
       updateGameActive(newGame);
       if(newGame.health > 0) {
         view.find('#base-status h2').text(newGame.health);
+        view.find('#base-status .game-over').hide();
       } else {
-        view.find('#base-status .loading').hide();
         view.find('#base-status h2').text("Game over!");
         view.find('#base-status .game-over').show();
       }
