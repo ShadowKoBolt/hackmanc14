@@ -43,9 +43,7 @@ class Game
 
   def decrement_towers!
     new_health = (@towers.inject(0) { |res, t| res + t.enemies })
-    if new_health <= 0
-      @health = 0
-    end
+    @health = [new_health, 0].max
   end
 
   def new_player_from_connection(connection)
