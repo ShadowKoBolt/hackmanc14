@@ -38,6 +38,7 @@ class Game
     begin
       message = JSON.parse(message)
       if message["location"] == 0
+        player.location = :base
         player.add_ammo!
       else
         tower = find_tower(message["location"])
