@@ -34,6 +34,9 @@ $(function() {
       } else {
         view.find('#enemies').text("");
       }
+      if (newGame.state == "active") {
+        view.find('#start').hide();
+      }
     }
     function showEnemies(count) {
       enemyContainer = view.find("#enemies");
