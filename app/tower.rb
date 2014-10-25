@@ -1,14 +1,24 @@
 class Tower
-  attr_reader :id, :health
+  attr_reader :id, :enemies
 
   def initialize(id, health)
-    @id, @health = id, health
+    @id, @health, @enemies = id, health, 0
+  end
+
+  def new_wave!(n=5)
+    @enemies += n
+  end
+
+  def remove_enemy!
+    if @enemy > 0
+      @enemy -= 1
+    end
   end
 
   def as_json
     {
       id:id,
-      health:health
+      enemies:enemies
     }
   end
 
