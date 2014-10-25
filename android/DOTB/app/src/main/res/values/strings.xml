@@ -2,5 +2,5 @@
 <resources>
 
     <string name="app_name">DOTB</string>
-    <string name="base_url">http://www.llamadigital.net</string>
+    <string name="base_url">https://hackman.llamadigital.net/</string>
 </resources>
