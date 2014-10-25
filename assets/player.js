@@ -46,6 +46,7 @@ $(function() {
         view.find('#base-status h2').text(newGame.health);
       } else {
         view.find('#base-status h2').text("Game over!");
+        view.find('#base-status .game-over').show();
       }
       showAmmunition(self.ammo);
       if (self.currentLocation > 1) {
