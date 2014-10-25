@@ -83,7 +83,7 @@ class Game
       when "start"
         game_message("start")
       when "restart"
-        game_message("start")
+        game_message("restart")
       when "stop"
         game_message("stop")
       end
