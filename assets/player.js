@@ -87,6 +87,7 @@ $(function() {
       }
     }
     function start() {
+      view.find('#base-status .loading').hide();
       var newAction = { "action": "start" }
       updateGameActive();
       self.connection.send(JSON.stringify(newAction));
