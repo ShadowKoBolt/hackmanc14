@@ -53,7 +53,11 @@ EM.run {
         puts msg
         @game.receive_message(player_id, msg)
       end
+
+      ws.onerror do  |error|
+        puts "websocket error :"error.inspect
+      end
     end
 
     puts "Server started: Lets Dance!!!!"
-}
+      }
