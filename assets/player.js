@@ -61,6 +61,7 @@ $(function() {
       if(newGame.health > 0) {
         view.find('#base-status h2').text(newGame.health);
       } else {
+        view.find('#base-status .loading').hide();
         view.find('#base-status h2').text("Game over!");
         view.find('#base-status .game-over').show();
       }
@@ -92,6 +93,7 @@ $(function() {
     }
     function attack() {
       if (self.ammo > 0) {
+        document.getElementById('audio-attack').play();
         window.navigator.vibrate(200);
         var newAttack = { "action": "user", "location": self.currentLocation }
         self.connection.send(JSON.stringify(newAttack));
