@@ -20,6 +20,7 @@ $(function() {
       if (self.connected) {
         updateGame(parsedData);
       } else {
+        self.playerId = parsedData.config.id;
         self.connected = true;
         self.playerId = parsedData.config.id;
         self.ammo = parsedData.config.ammo;
@@ -38,12 +39,24 @@ $(function() {
 
     function updateGame(newGame) {
       console.log(newGame);
+      
+      // update state
       if (newGame.state == 'active') {
         self.gameStarted = true;
       }
       else {
         self.gameStarted = false;
       }
+      
+      // update ammo
+      players = newGame.players;
+      for (i = 0 ; i < players.length ; i++) {
+        player = players[i];
+        if (player.id == self.playerId) {
+          self.ammo = player.ammo;
+        }
+      }
+
       updateGameActive();
       if(newGame.health > 0) {
         view.find('#base-status h2').text(newGame.health);
