@@ -8,7 +8,16 @@ EM.run {
 
   @current_game = Game.new Tower.new(1,100), Tower.new(2,100), Tower.new(3,100)
 
-  # EventMachine.add_timer 5, proc { puts "Executing timer event: #{Time.now}" }
+  attack_timer = EventMachine::PeriodicTimer.new 20, Proc.new {
+    tower = @current_game.towers.sample
+    puts "attacking tower: #{tower.id}"
+    tower.attack!(5)
+  }
+
+  render_timer = EventMachine::PeriodicTimer.new 1, Proc.new {
+    @current_game.render! 
+  }
+
   #   EventMachine.add_timer(10) { puts "Executing timer event: #{Time.now}" }
 
   EM::WebSocket.run(:host => "0.0.0.0", :port => 8080) do |ws|
