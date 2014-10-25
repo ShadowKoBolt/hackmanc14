@@ -45,6 +45,8 @@ EM.run {
       end
 
       ws.onmessage do |msg|
+        puts "Raw message received from user: #{player_id}"
+        puts msg
         @game.receive_message(player_id, msg)
       end
     end
