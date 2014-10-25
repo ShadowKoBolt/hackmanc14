@@ -11,20 +11,36 @@ class Game
     @towers = towers
   end
 
-  def players
-    @player ||= []
+  def health
+    @health ||= 100
   end
 
-  def enemies
-    @player ||= []
+  def new_player_from_connection(connection)
+    p = Player.new(generate_id, connection)
+    players << p
+    p
+  end
+
+  def remove_player_with_id(id)
+    !!(@players.reject! { |item| item.id == id }.nil?)
   end
 
   def to_json
     {
       towers:towers.map(&:as_json),
-      players:players,
-      enemies:enemies
+      players:players
     }.to_json
+  end
+
+  def players
+    @players ||= []
+  end
+
+  private
+
+  def generate_id
+    @last_id ||= 0
+    @last_id += 1
   end
 
 end

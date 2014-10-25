@@ -1,14 +1,18 @@
 class Tower
-  attr_reader :id, :health
+  attr_reader :id, :enemies
 
   def initialize(id, health)
     @id, @health = id, health
   end
 
+  def enemies
+    @enemies ||= 0
+  end
+
   def as_json
     {
       id:id,
-      health:health
+      enemies:enemies
     }
   end
 
