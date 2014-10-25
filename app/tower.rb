@@ -10,8 +10,8 @@ class Tower
   end
 
   def remove_enemy!
-    if @enemy > 0
-      @enemy -= 1
+    if @enemies > 0
+      @enemies -= 1
     end
   end
 
