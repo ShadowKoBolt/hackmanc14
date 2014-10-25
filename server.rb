@@ -8,6 +8,8 @@ EM.run {
   @game = Game.new Tower.new(2, 100), Tower.new(3, 100), Tower.new(4, 100)
 
   EventMachine::PeriodicTimer.new 20, Proc.new {
+    puts "enemies advancing"
+    puts "game state is #{@game.state}"
     if @game.active? && @game.players.length > 2
       old_health = @game.health
       tower = @game.towers.sample
@@ -18,6 +20,8 @@ EM.run {
   }
 
   EventMachine::PeriodicTimer.new 5, Proc.new {
+    puts "enemies attacking"
+    puts "game state is #{@game.state}"
     if @game.active? && @game.players.length > 0
       @game.decrement_towers! 
       @game.render!
