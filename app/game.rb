@@ -42,8 +42,8 @@ class Game
   end
 
   def decrement_towers!
-    new_health = (@towers.inject(0) { |res, t| res + t.enemies })
-    @health = [new_health, 0].max
+    damage = (@towers.inject(0) { |res, t| res + t.enemies })
+    @health = [(@health - damage), 0].max
   end
 
   def new_player_from_connection(connection)
@@ -96,10 +96,12 @@ class Game
       end
     end
     puts "message processed from user: #{player.id}"
+    render!
   end
 
   def game_message(action)
     self.send action
+    render!
   end
 
   def remove_player_with_id(id)
