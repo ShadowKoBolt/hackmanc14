@@ -36,6 +36,8 @@ $(function() {
 
     function updateGame(newGame) {
       console.log(newGame);
+      self.gameStarted = this.active;
+      updateGameActive();
       view.find('#base-status h2').text(newGame.health);
       view.find('#ammo').text(self.ammo);
       if (self.currentLocation > 1) {
@@ -66,8 +68,17 @@ $(function() {
     }
     function start() {
       var newAction = { "action": "start" }
-      view.find('#start').hide();
+      updateGameActive();
       self.connection.send(JSON.stringify(newAction));
+    }
+
+    function updateGameActive() {
+      if (self.gameStarted == true) {
+        view.find('#start').hide();
+      }
+      else {
+        view.find('#start').show();
+      }
     }
 
     this.updateLocation = function(location) {
