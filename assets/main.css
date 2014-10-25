@@ -1,18 +1,17 @@
 body {
   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
   text-align: center;
+  align-items: stretch;
 }
-div {
+body>div {
   display: flex;
   flex-direction: column;
 }
 #base-status {
-  height: 20vh;
 }
 #current-location {
-  height: 40vh;
+  background: #277552;
 }
 #action {
-  height: 40vh;
 }
 #action button { height: 10vh }
