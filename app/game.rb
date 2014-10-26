@@ -66,7 +66,7 @@ class Game < GameActor
   def decrement_towers!
     damage = (@towers.inject(0) { |res, t| res + t.enemies })
     @health = [(@health - damage), 0].max
-    game_over! if @game.health == 0
+    game_over! if @health == 0
   end
 
   def new_player_from_connection(connection)
