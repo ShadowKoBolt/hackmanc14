@@ -7,6 +7,7 @@ import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
@@ -43,6 +44,8 @@ public class WebViewActivity extends Activity {
         });
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        JSInterface jsInterface = new JSInterface();
+        webView.addJavascriptInterface(jsInterface, "android");
         webView.loadUrl(getString(R.string.base_url));
 
         // Ranging setup
@@ -53,7 +56,9 @@ public class WebViewActivity extends Activity {
                     Beacon bestBeacon = mProcessor.getBestBeacon(beacons);
                     if (bestBeacon != null) {
                         webView.loadUrl("javascript:test('Beacon " + bestBeacon.getMajor() + " " + bestBeacon.getRssi() + "')");
-                        webView.loadUrl("javascript:game.updateLocation(" + bestBeacon.getMajor() + ")");
+                        // webView.loadUrl("javascript:game.updateLocation(" + bestBeacon.getMajor() + ")");
+                        webView.loadUrl("javascript:test('Hello World')");
+                        webView.loadUrl("javascript:doShowMessage('Hello World')");
                     }
                     else {
                         webView.loadUrl("javascript:test('No Beacon')");
@@ -99,4 +104,21 @@ public class WebViewActivity extends Activity {
         }
         super.onDestroy();
     }
+
+    public class JSInterface {
+
+        private WebView mAppView;
+        public JSInterface  (WebView appView) {
+            this.mAppView = appView;
+        }
+
+        public JSInterface() {
+        }
+
+        public void doShowMessage(String message){
+            Toast toast = Toast.makeText(mAppView.getContext(), message, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
 }
