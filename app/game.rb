@@ -5,7 +5,7 @@ require './app/enemy.rb'
 
 class Game
 
-  attr_reader :towers, :health, :state
+  attr_reader :towers, :health, :state, :start_time, :stop_time
 
   def initialize(*towers)
     set_defaults!
@@ -14,11 +14,14 @@ class Game
 
   def start
     puts "starting game"
+    @start_time = Time.now
+    @stop_time = nil
     @state = :active
   end
 
   def stop
     puts "stopping game"
+    @stop_time = Time.now
     @state = :ready
   end
 
@@ -26,6 +29,11 @@ class Game
     puts "restarting game"
     set_defaults!
     start
+  end
+
+  def duration
+    return nil unless start_time
+    ((stop_time || Time.now) - start_time).to_i
   end
 
   def active?
@@ -134,6 +142,7 @@ class Game
   def as_json
     {
       state:state,
+      duration:duration,
       health:health,
       towers:towers.map(&:as_json),
       players:players.map(&:as_json)
