@@ -61,7 +61,7 @@ $(function() {
 
     function updateGame(newGame) {
       console.log(newGame);
-      
+
       // update state
       self.gameState = newGame.state
 
@@ -69,11 +69,16 @@ $(function() {
       self.ammo = newGame.me.ammo;
 
       updateGameActive(newGame);
+
       if(newGame.health > 0) {
-        view.find('#base-status h2').text(newGame.health);
+        view.find('#current-location').show();
+        view.find('#base-status h3').show();
+        view.find('#base-status h2').text('Base health: ' + newGame.health + '%');
+        view.find('#base-status h3').text('Killed ' + newGame.me.score + ' enemies in ' + newGame.duration + ' seconds');
         view.find('#base-status .game-over').hide();
       } else {
         deadSound.play();
+        view.find('#current-location').hide();
         view.find('#base-status h2').text("Game over!");
         view.find('#base-status .game-over').show();
       }
