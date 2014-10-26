@@ -125,7 +125,8 @@ class Game
   def render!
     players.each do |player|
       hash = player.connection.send self.as_json
-      hash[:me] = player.as_json
+      hash["me"] = player.as_json
+      hash["players"].delete_if { |obj| obj["id"] == player.id }
       player.connection.send hash.to_json
     end
   end
