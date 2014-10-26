@@ -1,11 +1,12 @@
 require 'json'
+require './app/game_actor.rb'
+
 require './app/tower.rb'
 require './app/player.rb'
-require './app/enemy.rb'
 
-class Game
+class Game < GameActor
 
-  attr_reader :towers, :health, :state
+  attr_reader :towers, :health, :state, :start_time, :stop_time
 
   def initialize(*towers)
     set_defaults!
@@ -14,11 +15,14 @@ class Game
 
   def start
     puts "starting game"
+    @start_time = Time.now
+    @stop_time = nil
     @state = :active
   end
 
   def stop
     puts "stopping game"
+    @stop_time = Time.now
     @state = :ready
   end
 
@@ -26,6 +30,11 @@ class Game
     puts "restarting game"
     set_defaults!
     start
+  end
+
+  def duration
+    return nil unless start_time
+    ((stop_time || Time.now) - start_time).to_i
   end
 
   def active?
@@ -57,6 +66,7 @@ class Game
   def decrement_towers!
     damage = (@towers.inject(0) { |res, t| res + t.enemies })
     @health = [(@health - damage), 0].max
+    game_over! if @game.health == 0
   end
 
   def new_player_from_connection(connection)
@@ -104,7 +114,7 @@ class Game
       # player.location = tower
       if tower
         if player.has_ammo?
-          player.remove_ammo! 
+          player.remove_ammo!(tower.enemies > 0)
           tower.remove_enemy! if tower.enemies > 0
         end
       end
@@ -124,21 +134,20 @@ class Game
 
   def render!
     players.each do |player|
-      player.connection.send self.to_json
+      hash = player.connection.send self.as_json
+      hash["me"] = player.as_json
+      player.connection.send hash.to_json
     end
   end
 
   def as_json
     {
       state:state,
+      duration:duration,
       health:health,
       towers:towers.map(&:as_json),
       players:players.map(&:as_json)
     }
-  end
-
-  def to_json
-    as_json.to_json
   end
 
   def players
