@@ -17,7 +17,7 @@ $(function() {
     urls: ['audio/start.mp3']
   });
 
-  var startSound = new Howl({
+  var hitSound = new Howl({
     urls: ['audio/hit.mp3']
   });
 
