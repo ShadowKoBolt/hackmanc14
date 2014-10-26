@@ -1,9 +1,10 @@
 require 'json'
+require './app/game_actor.rb'
+
 require './app/tower.rb'
 require './app/player.rb'
-require './app/enemy.rb'
 
-class Game
+class Game < GameActor
 
   attr_reader :towers, :health, :state, :start_time, :stop_time
 
@@ -65,6 +66,7 @@ class Game
   def decrement_towers!
     damage = (@towers.inject(0) { |res, t| res + t.enemies })
     @health = [(@health - damage), 0].max
+    game_over! if @game.health == 0
   end
 
   def new_player_from_connection(connection)
@@ -134,7 +136,6 @@ class Game
     players.each do |player|
       hash = player.connection.send self.as_json
       hash["me"] = player.as_json
-      hash["players"].delete_if { |obj| obj["id"] == player.id }
       player.connection.send hash.to_json
     end
   end
@@ -147,10 +148,6 @@ class Game
       towers:towers.map(&:as_json),
       players:players.map(&:as_json)
     }
-  end
-
-  def to_json
-    as_json.to_json
   end
 
   def players

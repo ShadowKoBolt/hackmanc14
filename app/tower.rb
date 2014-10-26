@@ -1,4 +1,4 @@
-class Tower
+class Tower < GameActor
   attr_reader :id, :enemies
 
   def initialize(id, health)
@@ -25,7 +25,4 @@ class Tower
     }
   end
 
-  def to_json
-    as_json.to_json
-  end
 end

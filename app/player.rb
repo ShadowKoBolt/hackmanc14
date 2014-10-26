@@ -1,4 +1,4 @@
-class Player
+class Player < GameActor
   attr_reader :id, :ammo, :connection, :score
 
   def initialize(id, connection)
@@ -28,10 +28,6 @@ class Player
       score:score,
       ammo:ammo
     }
-  end
-
-  def to_json
-    as_json.to_json
   end
 
 end
