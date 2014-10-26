@@ -1,5 +1,6 @@
 $(function() {
 
+  // Set up sounds
   var shotgunSound = new Howl({
     urls: ['audio/shotgun.mp3']
   });
@@ -14,6 +15,10 @@ $(function() {
 
   var startSound = new Howl({
     urls: ['audio/start.mp3']
+  });
+
+  var startSound = new Howl({
+    urls: ['audio/hit.mp3']
   });
 
   function Game(view) {
@@ -74,7 +79,7 @@ $(function() {
         view.find('#base-status h2').text(newGame.health);
         view.find('#base-status .game-over').hide();
       } else {
-        deathSound.play();
+        deadSound.play();
         view.find('#base-status h2').text("Game over!");
         view.find('#base-status .game-over').show();
       }
@@ -106,6 +111,7 @@ $(function() {
     function attack() {
       if (self.ammo > 0) {
         shotgunSound.play();
+        hitSound.play();
         window.navigator.vibrate(200);
         var newAttack = { "action": "user", "location": self.currentLocation }
         self.connection.send(JSON.stringify(newAttack));
