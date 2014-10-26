@@ -42,7 +42,7 @@ $(function() {
       console.log(e.data);
       if (parsedData.message) {
         // android.showMessage(message);
-        console.log(parseData.message);
+        console.log(parsedData.message);
       } else if (self.connected) {
         updateGame(parsedData);
       } else {
