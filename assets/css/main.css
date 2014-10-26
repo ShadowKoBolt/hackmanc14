@@ -34,17 +34,11 @@ body>div {
 }
 
 #ammunition .bullet {
-  background-image: url("bullet.gif");
+  background-image: url("/images/bullet.gif");
   background-repeat: no-repeat;
   background-size: contain;
   display: inline-block;
   padding: 10px;
-}
-
-.loading {
-  width:32px;
-  margin-left:auto;
-  margin-right:auto;
 }
 
 .game-over {
