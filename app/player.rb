@@ -9,6 +9,10 @@ class Player < GameActor
     @ammo > 0
   end
 
+  def reset!
+    @ammo, @score = 5, 0
+  end
+
   def remove_ammo!(target_hit=false)
     @score += 1 if target_hit
     if @ammo > 0

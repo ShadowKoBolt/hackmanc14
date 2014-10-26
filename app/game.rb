@@ -61,6 +61,9 @@ class Game < GameActor
         tower.reset!
       end
     end
+    if @players
+      @players.each(&:reset!)
+    end
   end
 
   def decrement_towers!
