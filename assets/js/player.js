@@ -40,9 +40,9 @@ $(function() {
       this.connection = new WebSocket('ws://192.168.69.69:8080'); } this.connection.onmessage = function (e) {
       var parsedData = JSON.parse(e.data);
       console.log(e.data);
-      if (parsedData.message.length) {
+      if (parsedData.message) {
         // android.showMessage(message);
-        console.log(message);
+        console.log(parsedData.message);
       } else if (self.connected) {
         updateGame(parsedData);
       } else {
