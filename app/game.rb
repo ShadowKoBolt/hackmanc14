@@ -124,7 +124,9 @@ class Game
 
   def render!
     players.each do |player|
-      player.connection.send self.to_json
+      hash = player.connection.send self.as_json
+      hash[:me] = player.as_json
+      player.connection.send hash.to_json
     end
   end
 
