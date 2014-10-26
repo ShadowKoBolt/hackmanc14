@@ -64,15 +64,9 @@ $(function() {
       
       // update state
       self.gameState = newGame.state
-      
+
       // update ammo
-      players = newGame.players;
-      for (i = 0 ; i < players.length ; i++) {
-        player = players[i];
-        if (player.id == self.playerId) {
-          self.ammo = player.ammo;
-        }
-      }
+      self.ammo = newGame.me.ammo;
 
       updateGameActive(newGame);
       if(newGame.health > 0) {

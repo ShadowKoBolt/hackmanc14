@@ -34,7 +34,7 @@ body>div {
 }
 
 #ammunition .bullet {
-  background-image: url("/images/bullet.gif");
+  background-image: url("../images/bullet.gif");
   background-repeat: no-repeat;
   background-size: contain;
   display: inline-block;
