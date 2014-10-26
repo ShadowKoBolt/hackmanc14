@@ -1,15 +1,16 @@
 class Player
-  attr_reader :id, :ammunition, :connection
+  attr_reader :id, :ammo, :connection, :score
 
   def initialize(id, connection)
-    @id, @connection, @ammo = id, connection, 5
+    @id, @connection, @ammo, @score= id, connection, 5, 0
   end
 
   def has_ammo?
     @ammo > 0
   end
 
-  def remove_ammo!
+  def remove_ammo!(target_hit=false)
+    @score += 1 if targer_hit
     if @ammo > 0
       @ammo -= 1
     end
@@ -24,7 +25,8 @@ class Player
   def as_json
     {
       id:id,
-      ammo:@ammo
+      score:score,
+      ammo:ammo
     }
   end
 

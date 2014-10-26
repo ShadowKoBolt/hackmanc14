@@ -104,7 +104,7 @@ class Game
       # player.location = tower
       if tower
         if player.has_ammo?
-          player.remove_ammo! 
+          player.remove_ammo!(tower.enemies > 0)
           tower.remove_enemy! if tower.enemies > 0
         end
       end
