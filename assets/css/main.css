@@ -25,7 +25,7 @@ body>div {
 }
 
 #enemies .enemy {
-  background-image: url("enemy.jpeg");
+  background-image: url("../images/enemy.jpeg");
   background-size: contain;
   background-repeat: no-repeat;
   display: inline-block;
