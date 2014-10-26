@@ -98,7 +98,8 @@ class Game < GameActor
         game_message("stop")
       end
       render!
-    rescue Exception
+    rescue Exception => e
+      puts e.inspect
     end
   end
 
@@ -114,8 +115,8 @@ class Game < GameActor
       # player.location = tower
       if tower
         if player.has_ammo?
-          player.remove_ammo!(tower.enemies > 0)
-          tower.remove_enemy! if tower.enemies > 0
+          player.remove_ammo!(true)
+          tower.remove_enemy! if (tower.enemies > 0)
         end
       end
     end

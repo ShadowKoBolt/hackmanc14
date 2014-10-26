@@ -10,7 +10,7 @@ class Player < GameActor
   end
 
   def remove_ammo!(target_hit=false)
-    @score += 1 if targer_hit
+    @score += 1 if target_hit
     if @ammo > 0
       @ammo -= 1
     end
