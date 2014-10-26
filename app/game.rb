@@ -98,7 +98,8 @@ class Game < GameActor
         game_message("stop")
       end
       render!
-    rescue Exception
+    rescue Exception => e
+      puts e.inspect
     end
   end
 
@@ -114,8 +115,8 @@ class Game < GameActor
       # player.location = tower
       if tower
         if player.has_ammo?
-          player.remove_ammo!(tower.enemies > 0)
-          tower.remove_enemy! if tower.enemies > 0
+          player.remove_ammo!(true)
+          tower.remove_enemy! if (tower.enemies > 0)
         end
       end
     end
@@ -138,6 +139,10 @@ class Game < GameActor
       hash["me"] = player.as_json
       player.connection.send hash.to_json
     end
+  end
+
+  def broadcast_message(message)
+    @players.each{|p| p.connection.send({ message: message }.to_json) }
   end
 
   def as_json
