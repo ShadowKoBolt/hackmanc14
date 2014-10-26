@@ -140,6 +140,10 @@ class Game < GameActor
     end
   end
 
+  def broadcast_message(message)
+    @players.each{|p| p.connection.send({ message: message }.to_json) }
+  end
+
   def as_json
     {
       state:state,
